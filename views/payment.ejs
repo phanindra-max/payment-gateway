@@ -1,14 +1,26 @@
-<label for="">Amount: </label>
-<input type="text" id="order-amt">
-<br>
-<!-- Get order id from razorpay -->
-<button id="order-button1">Create Order</button>
-<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <title>NashAgri Demo Payments</title>
+</head>
+<body class="container mt-5">
+
+    <h2><label for="">Amount: </label></h2>
+    <input id="order-amt" class="mb-3" type="number" value="0" required>
+    <br>
+    <!-- Get order id from razorpay -->
+    <button class="btn btn-success" id="order-button1">Create Order</button>
+    <br>
+
 <script>
     document.getElementById("order-button1").onclick = function(e) {
-        var url = "/api/payment/order"
+        var url = "/api/payment/order";
         var params = {
-            amount: document.getElementById("order-amt").value,
+            amount: document.getElementById("order-amt").value*100,
             currency: "INR",
             receipt: "wthcoding001",
             payment_capture: '1'
@@ -27,10 +39,10 @@
 </script>
 <br>
 <hr>
-<label for="">Order id: </label>
-<input type="text" name="" id="rzp-text">
+<h2><label for="">Order id: </label></h2>
+<input type="text" name="" id="rzp-text" class="mb-3">
 <br>
-<button id="rzp-button1">Checkout</button>
+<button class="btn btn-primary" id="rzp-button1">Checkout</button>
 <div id="paymentDetails"></div>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
@@ -38,8 +50,8 @@
         var options = {
             "key": "<%= key %>",
             "currency": "INR",
-            "name": "WTH Coding",
-            "description": "WtH Coding Transaction",
+            "name": "NashAgri",
+            "description": "From MahaConnect CashKrop Services Pvt. Ltd.",
             "order_id": document.getElementById("rzp-text").value,
             "handler": function(response) {
                 document.getElementById('order-pay-id').value = response.razorpay_payment_id;
@@ -57,14 +69,21 @@
 </script>
 <br>
 <hr>
-<label for="">Order id :</label>
-<input type="text" id="order-id">
-<label for="">Payment id :</label>
-<input type="text" id="order-pay-id">
-<label for="">Order signature :</label>
-<input type="text" id="order-sig">
+
+<div>
+    <h3 class="d-inline"><label for="">Order id :</label></h3>
+    <input type="text" id="order-id" class="mb-3 d-inline">
+</div>
+<div>
+    <h3 class="d-inline"><label for="">Payment id :</label></h3>
+    <input type="text" id="order-pay-id" class="mb-3 d-inline">
+</div>
+<div>
+    <h3 class="d-inline"><label for="">Order signature :</label></h3>
+    <input type="text" id="order-sig" class=" d-inline">
+</div>
 <br>
-<button id="verify-button1">Verify </button>
+<button class="btn btn-info" id="verify-button1">Verify </button>
 <script>
     document.getElementById('verify-button1').onclick = function(e) {
         var url = '/api/payment/verify';
@@ -84,3 +103,5 @@
         xmlHttp.send(JSON.stringify(params));
     }
 </script>
+</body>
+</html>

@@ -21,9 +21,11 @@ app.use(
 );
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+
 
 //Routes
-app.get("/payments", (req, res) => {
+app.get("/", (req, res) => {
   res.render("payment", { key: process.env.KEY_ID });
 });
 app.post("/api/payment/order", (req, res) => {
